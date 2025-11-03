@@ -661,8 +661,7 @@ XML_ParserCreate(const XML_Char *encodingName)
 XML_Parser XMLCALL
 XML_ParserCreateNS(const XML_Char *encodingName, XML_Char nsSep)
 {
-  XML_Char tmp[2];
-  *tmp = nsSep;
+  XML_Char tmp[2] = {nsSep, 0};
   return XML_ParserCreate_MM(encodingName, NULL, tmp);
 }
 
@@ -1288,8 +1287,7 @@ XML_ExternalEntityParserCreate(XML_Parser oldParser,
      would be otherwise.
   */
   if (parser->m_ns) {
-    XML_Char tmp[2];
-    *tmp = parser->m_namespaceSeparator;
+    XML_Char tmp[2] = {parser->m_namespaceSeparator, 0};
     parser = parserCreate(encodingName, &parser->m_mem, tmp, newDtd);
   }
   else {
